@@ -1,12 +1,15 @@
-import express from "express";
+import express from 'express';
+import bodyParser from 'body-parser';
+import path from 'path';
+
+import authRoutes from './routes/auth';
 
 const app = express();
-const port = 3000;
+app.use(bodyParser.json()); //bodyparser middleware
+app.use(express.static(path.join(__dirname, '../public'))); //middleware to access static files
 
-app.get("/", (req, res) => {
-  res.send("heloo world");
-});
+// Routes
+app.use('/auth', authRoutes);
 
-app.listen(port, () => {
-  console.log(`Connected successfully on port ${port}`);
-});
+const PORT = 3000;
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
