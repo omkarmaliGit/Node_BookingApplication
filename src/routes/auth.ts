@@ -9,6 +9,7 @@ interface User {
   id: number;
   email: string;
   password: string;
+  role: string;
 }
 
 // Register route
@@ -22,7 +23,11 @@ router.post('/register', async (req: Request, res: Response): Promise<any> => {
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const newUser: User = { id: users.length + 1, email, password: hashedPassword };
+  const newUser: User = { 
+    id: users.length + 1, 
+    email, 
+    password: hashedPassword, 
+    role: "user"};
   users.push(newUser);
   writeData(USERS_FILE, users);
 
@@ -45,7 +50,7 @@ router.post('/login', async (req: Request, res: Response): Promise<any> => {
         return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    res.status(200).json({ message: "Login successful", userId: user.id });
+    res.status(200).json({ message: "Login successful", userId: user.id, role: user.role });
 });
 
 export default router;

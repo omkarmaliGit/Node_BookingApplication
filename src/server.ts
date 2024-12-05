@@ -5,8 +5,8 @@ import path from 'path';
 import authRoutes from './routes/auth';
 
 const app = express();
-app.use(bodyParser.json()); //bodyparser middleware
-app.use(express.static(path.join(__dirname, '../public'))); //middleware to access static files
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Routes
 app.use('/auth', authRoutes);

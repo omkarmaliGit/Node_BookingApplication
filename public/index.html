@@ -3,9 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
+    <title>BOOKforME</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <p>Booking Application</p>
+    <header>
+      <div class="header1">
+        <a href="index.html" class="logo"
+          >BOOK<span style="color: #d71920"><i>for</i></span
+          >ME</a
+        >
+        <nav>
+          <button id="auth-button" onclick="handleAuthClick()">Login</button>
+        </nav>
+      </div>
+      <div class="header2">
+        <nav>
+          <button id="MoviesBtn">Movies</button>
+          <button id="SportsBtn">Sports</button>
+          <button id="EventsBtn">Events</button>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <!-- Content will be dynamically populated -->
+    </main>
+
+    <script src="script.js"></script>
   </body>
 </html>

@@ -1,0 +1,176 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const authButton = document.getElementById("auth-button");
+
+  // Handle login/logout button click
+  authButton.textContent = isLoggedIn() ? "Logout" : "Login";
+  authButton.addEventListener("click", handleAuthClick);
+
+  // Redirect based on login state
+  function handleAuthClick() {
+    if (isLoggedIn()) {
+      logoutUser();
+    } else {
+      window.location.href = "login.html";
+    }
+  }
+
+  // Check if user is logged in
+  function isLoggedIn() {
+    return localStorage.getItem("user") !== null;
+  }
+
+  // Logout user
+  function logoutUser() {
+    localStorage.removeItem("user");
+    alert("You have been logged out.");
+    window.location.href = "index.html";
+  }
+
+  // Add event listeners for login and registration forms
+  const loginForm = document.getElementById("login-form");
+  const registerForm = document.getElementById("register-form");
+
+  if (loginForm) {
+    loginForm.addEventListener("submit", handleLogin);
+  }
+
+  if (registerForm) {
+    registerForm.addEventListener("submit", handleRegistration);
+  }
+
+  // Handle Login
+  async function handleLogin(event) {
+    event.preventDefault();
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    try {
+      const response = await fetch("/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert("Login successful!");
+        sessionStorage.setItem(
+          "user",
+          JSON.stringify({
+            email,
+            role: result.role,
+          })
+        );
+        // Save user data
+        window.location.href = "index.html";
+      } else {
+        alert(result.message || "Login failed!");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again.");
+    }
+  }
+
+  // Handle Registration
+  async function handleRegistration(event) {
+    event.preventDefault();
+    const email = document.getElementById("register-email").value;
+    const password = document.getElementById("register-password").value;
+
+    try {
+      const response = await fetch("/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert("Registration successful! Please log in.");
+        window.location.href = "login.html";
+      } else {
+        alert(result.message || "Registration failed!");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again.");
+    }
+  }
+
+  // Navigation logic
+  document.getElementById("MoviesBtn").addEventListener("click", () => {
+    if (isLoggedIn()) {
+      const user = JSON.parse(sessionStorage.getItem("user"));
+      displayMovies(user.role);
+    } else {
+      alert("Please log in to access this section.");
+      window.location.href = "login.html";
+    }
+  });
+
+  // Display content based on role
+  function displayMovies(role) {
+    const mainContent = document.getElementById("main-content");
+    if (role === "admin") {
+      mainContent.innerHTML = `<h2>Admin Dashboard</h2><p>Welcome, Admin! Manage movies here.</p>`;
+    } else {
+      mainContent.innerHTML = `<h2>Available Movies</h2><p>List of movies for users.</p>`;
+    }
+  }
+
+  // Display navigation bar and initialize content
+  function displayIndex() {
+    const mainContent = document.getElementById("main-content");
+    mainContent.innerHTML = `
+      <div>
+        <section class="RecoMovies">
+          <div class="card">
+            <img
+              src="https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:l-image,i-discovery-catalog@@icons@@like_202006280402.png,lx-24,ly-617,w-29,l-end:l-text,ie-MS45TSBMaWtlcw%3D%3D,fs-29,co-FFFFFF,ly-612,lx-70,pa-8_0_0_0,l-end/et00356724-txsuklqlke-portrait.jpg"
+              alt="Avatar"
+              style="width: 100%"
+            />
+            <div class="container">
+              <h4><b>Pushpa 2: The Rule</b></h4>
+              <p>Action , Thriller</p>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:l-image,i-discovery-catalog@@icons@@star-icon-202203010609.png,lx-24,ly-615,w-29,l-end:l-text,ie-OC40LzEwICA2LjZLIFZvdGVz,fs-29,co-FFFFFF,ly-612,lx-70,pa-8_0_0_0,l-end/et00387901-zzezpljyvq-portrait.jpg"
+              alt="Avatar"
+              style="width: 100%"
+            />
+            <div class="container">
+              <h4><b>Moana 2</b></h4>
+              <p>Adventure , Animation , Comedy , Fantasy</p>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:l-image,i-discovery-catalog@@icons@@star-icon-202203010609.png,lx-24,ly-615,w-29,l-end:l-text,ie-OC8xMCAgNiBWb3Rlcw%3D%3D,fs-29,co-FFFFFF,ly-612,lx-70,pa-8_0_0_0,l-end/et00419016-vcafpqzgxp-portrait.jpg"
+              alt="Avatar"
+              style="width: 100%"
+            />
+            <div class="container">
+              <h4><b>All the Long Nights</b></h4>
+              <p>Drama</p>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:l-image,i-discovery-catalog@@icons@@star-icon-202203010609.png,lx-24,ly-615,w-29,l-end:l-text,ie-OS4yLzEwICA1LjhLIFZvdGVz,fs-29,co-FFFFFF,ly-612,lx-70,pa-8_0_0_0,l-end/et00417142-ylxjreqdxh-portrait.jpg"
+              alt="Avatar"
+              style="width: 100%"
+            />
+            <div class="container">
+              <h4><b>Dharmarakshak</b></h4>
+              <p>Action , Drama , Historical , Period</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    `;
+  }
+});

@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "email": "admin@xyz.com",
+    "password": "$2b$10$zcDKZ4Ec7k8F8gFvdWBWK.BglUVoh0nW9l2X/W8xsHXJju/vhZFTO",
+    "role": "admin"
+  },
+  {
+    "id": 2,
+    "email": "omkar@xyz.com",
+    "password": "$2b$10$p4xfdrXzuusghmmlG41h2.c6G7rOXBySeNhaDe8lUfZ5hqwr1GG92",
+    "role": "user"
+  }
+]
