@@ -1,1 +1,10 @@
-[]
+[
+    {
+    "movie_id": "M001",
+    "title": "The Grand Adventure",
+    "genre": ["Adventure", "Action"],
+    "duration": 130,
+    "language": "English",
+    "rating": 8.5
+    }
+]

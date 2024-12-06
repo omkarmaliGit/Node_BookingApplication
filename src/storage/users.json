@@ -10,5 +10,11 @@
     "email": "omkar@xyz.com",
     "password": "$2b$10$p4xfdrXzuusghmmlG41h2.c6G7rOXBySeNhaDe8lUfZ5hqwr1GG92",
     "role": "user"
+  },
+  {
+    "id": 3,
+    "email": "shubham@xyz.com",
+    "password": "$2b$10$YfUjIDhigPEQj13ul7wSxelP4xDUs4Qa8t8hz4uhfsZ1kz7aHmAVS",
+    "role": "user"
   }
 ]

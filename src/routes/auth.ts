@@ -1,9 +1,13 @@
 import express, { Request, Response, Router} from 'express';
 import { readData, writeData } from '../helper/fileHelpers';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const router = Router();
 const USERS_FILE = "./src/storage/users.json";
+
+// require('dotenv').config();
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
 interface User {
   id: number;
@@ -50,7 +54,15 @@ router.post('/login', async (req: Request, res: Response): Promise<any> => {
         return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    res.status(200).json({ message: "Login successful", userId: user.id, role: user.role });
+    if (!JWT_SECRET) {
+      throw new Error("JWT_SECRET is not defined");
+    }
+
+    const token = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
+
+    console.log("Generated Token:", token);
+
+    res.status(200).json({ message: "Login successful", token, role: user.role });
 });
 
 export default router;
