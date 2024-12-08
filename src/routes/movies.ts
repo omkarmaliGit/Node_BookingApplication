@@ -1,5 +1,6 @@
 import express, {Request, Response} from 'express';
 import jwtAuth from '../middleware/basicAuth';
+import adminAuth from '../middleware/roleAuth';
 
 const router = express.Router();
 
@@ -8,11 +9,7 @@ router.get('/user', jwtAuth, (req: Request, res: Response) => {
 });
 
 // Admin-only route
-router.get('/admin', jwtAuth, (req: Request, res: Response):void => {
-  if (req.role !== 'admin') {
-    res.status(403).json({ message: 'Access forbidden: Admins only' });
-    return;
-  }
+router.get('/admin', jwtAuth, adminAuth, (req: Request, res: Response) => {
   res.json({ message: 'Welcome, Admin!' });
 });
 

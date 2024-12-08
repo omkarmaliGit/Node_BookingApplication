@@ -1,11 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-// import bcrypt from 'bcrypt';
-// import { readData } from '../helper/fileHelpers';
 
 const JWT_SECRET = process.env.JWT_SECRET as string || "70728c6235fe0363683b8e1093f39ee5dca1594712e3e5d3bf67f429539abfce";
-
-// const USERS_FILE = "./src/storage/users.json";
 
 declare global {
   namespace Express {
@@ -42,3 +38,4 @@ const jwtAuth = (req: Request, res: Response, next: NextFunction): void => {
 };
 
 export default jwtAuth;
+
