@@ -59,7 +59,6 @@ async function handleLogin(event) {
         "user",
         JSON.stringify({
           token: result.token,
-          role: result.role,
         })
       );
       // Save user data
