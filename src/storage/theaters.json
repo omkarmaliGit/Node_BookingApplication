@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "theater_id": "1",
+    "name": "City Center Theater",
+    "location": "Downtown",
+    "capacity": 150,
+    "shows": ["S001", "S002"]
+  },
+  {
+    "theater_id": "2",
+    "name": "Abhiruchi Theater",
+    "location": "Dayari",
+    "capacity": 150,
+    "shows": ["S001", "S002"]
+  },
+  {
+    "theater_id": "3",
+    "name": "City pride Theater",
+    "location": "Satara Road",
+    "capacity": 150,
+    "shows": ["S001", "S002"]
+  }
+]

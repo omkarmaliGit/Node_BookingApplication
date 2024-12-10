@@ -133,12 +133,120 @@ document.getElementById("MoviesBtn").addEventListener("click", () => {
 });
 
 // Display content based on role
-function displayMovies(role) {
+async function displayMovies(role) {
   const mainContent = document.getElementById("main-content");
-  if (role === "admin") {
-    mainContent.innerHTML = `<h2>Movie Section</h2><p>add movie</p>`;
-  } else {
-    mainContent.innerHTML = `<h2>Available Movies</h2><p>List of movies for users.</p>`;
+
+  try {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user || !user.token) {
+      alert("User information not found. Please log in again.");
+      return;
+    }
+
+    const authHeader = user ? user.token : null;
+
+    const response = await fetch("/movies", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authHeader}`,
+      },
+    });
+
+    const movies = await response.json();
+
+    if (!response.ok) {
+      throw new Error(movies.message || "Failed to fetch movies");
+    }
+
+    let movieCards = "";
+
+    // Add
+    if (role === "admin") {
+      movieCards += `
+        <form id="add-movie-form" class="form-container">
+          <h2>Add Movie</h2>
+          <input type="text" id="title" placeholder="Title" required />
+          <input type="text" id="genre" placeholder="Genre (comma-separated)" required />
+          <input type="number" id="duration" placeholder="Duration (minutes)" required />
+          <input type="text" id="language" placeholder="Language" required />
+          <input type="number" id="rating" placeholder="Rating" step="0.1" required />
+          <button type="submit">Add Movie</button>
+        </form>
+      `;
+    }
+
+    // Display
+    movieCards += '<div class="movies-container">';
+    movies.forEach((movie) => {
+      movieCards += `
+        <div class="movie-card">
+        <img src="${movie.poster}" alt="${
+        movie.title
+      } Poster" style="width:100%; height:auto;"/>
+            
+        <h3>${movie.title}</h3>
+          <p>Genre: ${movie.genre.join(", ")}</p>
+          <p>Duration: ${movie.duration} mins</p>
+          <p>Language: ${movie.language}</p>
+          <p>Rating: ${movie.rating}</p>
+          ${
+            role === "admin"
+              ? `<button onclick="deleteMovie(${movie.movie_id})">Delete</button>
+                 <button onclick="editMovie(${movie.movie_id})">Edit</button>`
+              : `<button onclick="bookMovie(${movie.movie_id})">Book Now</button>`
+          }
+        </div>
+      `;
+    });
+    movieCards += "</div>";
+    mainContent.innerHTML = movieCards;
+
+    if (role === "admin") {
+      document
+        .getElementById("add-movie-form")
+        .addEventListener("submit", handleAddMovie);
+    }
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+  }
+}
+
+async function handleAddMovie(event) {
+  event.preventDefault();
+  const title = document.getElementById("title").value;
+  const genre = document.getElementById("genre").value.split(",");
+  const duration = parseInt(document.getElementById("duration").value);
+  const language = document.getElementById("language").value;
+  const rating = parseFloat(document.getElementById("rating").value);
+
+  try {
+    await fetch("/movies/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: getToken(),
+      },
+      body: JSON.stringify({ title, genre, duration, language, rating }),
+    });
+    alert("Movie added successfully!");
+    displayMovies("admin");
+  } catch (error) {
+    console.error("Error adding movie:", error);
+  }
+}
+
+async function deleteMovie(movieId) {
+  try {
+    await fetch(`/movies/${movieId}/delete`, {
+      method: "DELETE",
+      headers: { Authorization: getToken() },
+    });
+    alert("Movie deleted successfully!");
+    displayMovies("admin");
+  } catch (error) {
+    console.error("Error deleting movie:", error);
   }
 }
 

@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "booking_id": "1",
+    "user_id": "U123",
+    "show_id": "S001",
+    "seats": ["A5", "A6"],
+    "total_price": 25.0,
+    "booking_date": "2024-06-28"
+  },
+  {
+    "booking_id": "2",
+    "user_id": "U123",
+    "show_id": "S001",
+    "seats": ["A5", "A6"],
+    "total_price": 25.0,
+    "booking_date": "2024-06-28"
+  }
+]
