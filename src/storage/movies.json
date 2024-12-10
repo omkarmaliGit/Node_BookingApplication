@@ -1,10 +1,46 @@
 [
-    {
-    "movie_id": "M001",
+  {
+    "movie_id": "1",
     "title": "The Grand Adventure",
-    "genre": ["Adventure", "Action"],
+    "genre": [
+      "Adventure",
+      "Action"
+    ],
     "duration": 130,
     "language": "English",
     "rating": 8.5
-    }
+  },
+  {
+    "movie_id": "2",
+    "title": "Pushpa",
+    "genre": [
+      "Adventure",
+      "Action"
+    ],
+    "duration": 150,
+    "language": "Tamil",
+    "rating": 9.5
+  },
+  {
+    "movie_id": "3",
+    "title": "Natsamrat",
+    "genre": [
+      "Adventure",
+      "Action"
+    ],
+    "duration": 143,
+    "language": "Marathi",
+    "rating": 8
+  },
+  {
+    "movie_id": 4,
+    "title": "Jawan",
+    "genre": [
+      "Adventure",
+      "Action"
+    ],
+    "duration": 123,
+    "language": "Hindi",
+    "rating": 8.3
+  }
 ]

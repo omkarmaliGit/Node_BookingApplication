@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
     registerForm.addEventListener("submit", handleRegistration);
   }
 
-  //   const token = localStorage.getItem("token");
   const authButton = document.getElementById("auth-button");
   const mainContent = document.getElementById("main-content");
 
@@ -23,7 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (mainContent) {
     if (isLoggedIn()) {
       const user = JSON.parse(localStorage.getItem("user"));
-      displayDashboard(user.role); // Show nav and content
+      const decoded = jwt_decode(user.token);
+      displayDashboard(decoded.role);
     } else {
       displayIndex();
     }
@@ -114,11 +114,9 @@ function logoutUser() {
 function displayDashboard(role) {
   const mainContent = document.getElementById("main-content");
   if (role === "admin") {
-    mainContent.innerHTML = `<h2>This is Admin Dashboard</h2><p>Welcome, Admin! Manage movies here.</p>`;
+    mainContent.innerHTML = `<h2>Admin Dashboard</h2><p>welcome admin</p>`;
   } else {
-    mainContent.innerHTML = `<h2>This is User Dashboard</h2><p>List of movies for users.</p>`;
-
-    displayIndex();
+    mainContent.innerHTML = `<h2>User Dashboard</h2><p>List of movies for users.</p>`;
   }
 }
 
@@ -126,7 +124,8 @@ function displayDashboard(role) {
 document.getElementById("MoviesBtn").addEventListener("click", () => {
   if (isLoggedIn()) {
     const user = JSON.parse(localStorage.getItem("user"));
-    displayMovies(user.role);
+    const decoded = jwt_decode(user.token);
+    displayMovies(decoded.role);
   } else {
     alert("Please log in to access this section.");
     window.location.href = "login.html";
@@ -141,20 +140,6 @@ function displayMovies(role) {
   } else {
     mainContent.innerHTML = `<h2>Available Movies</h2><p>List of movies for users.</p>`;
   }
-}
-
-document.getElementById("pushpaMovie").addEventListener("click", () => {
-  if (isLoggedIn()) {
-    displayTheaters();
-  } else {
-    alert("Please log in to access this section.");
-    window.location.href = "login.html";
-  }
-});
-
-function displayTheaters() {
-  const mainContent = document.getElementById("main-content");
-  mainContent.innerHTML = `<h2>Available Theaters</h2><p>List of theaters</p>`;
 }
 
 // Display navigation bar and initialize content
@@ -214,14 +199,3 @@ function displayIndex() {
       </div>
     `;
 }
-
-const user = localStorage.getItem("user"); // Ensure this matches where you store your token
-fetch("http://localhost:3000/movies/admin", {
-  method: "GET",
-  headers: {
-    Authorization: `Bearer ${user.token}`,
-  },
-})
-  .then((response) => response.json())
-  .then((data) => console.log(data))
-  .catch((error) => console.error("Error:", error));
