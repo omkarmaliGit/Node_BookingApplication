@@ -7,8 +7,14 @@
     "time": "15:00",
     "available_seats": 50,
     "booked_seats": [
-      { "seat_number": "A5", "user_id": "U123" },
-      { "seat_number": "B10", "user_id": "U456" }
+      {
+        "seat_number": "A5",
+        "user_id": "U123"
+      },
+      {
+        "seat_number": "B10",
+        "user_id": "U456"
+      }
     ]
   },
   {
@@ -19,8 +25,32 @@
     "time": "15:00",
     "available_seats": 50,
     "booked_seats": [
-      { "seat_number": "A5", "user_id": "U123" },
-      { "seat_number": "B10", "user_id": "U456" }
+      {
+        "seat_number": "A5",
+        "user_id": "U123"
+      },
+      {
+        "seat_number": "B10",
+        "user_id": "U456"
+      }
+    ]
+  },
+  {
+    "show_id": 3,
+    "movie_id": 5,
+    "theater_id": 4,
+    "date": "2024-07-01",
+    "time": "15:00",
+    "available_seats": 50,
+    "booked_seats": [
+      {
+        "seat_number": "A5",
+        "user_id": "U123"
+      },
+      {
+        "seat_number": "B10",
+        "user_id": "U456"
+      }
     ]
   }
 ]

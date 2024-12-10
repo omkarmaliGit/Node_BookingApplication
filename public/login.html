@@ -39,5 +39,14 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+      // Check for JWT token in localStorage (or cookies)
+      const user = localStorage.getItem("user"); // If you're storing the JWT in localStorage
+
+      // If a token exists, redirect to the home/dashboard page
+      if (user) {
+        window.location.href = "index.html"; // Replace with your desired page
+      }
+    </script>
   </body>
 </html>
