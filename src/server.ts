@@ -5,16 +5,27 @@ import authRoutes from "./routes/auth";
 import movieRoutes from "./routes/movies";
 import theaterRoutes from "./routes/theaters";
 import showRoutes from "./routes/shows";
-import { config, configDotenv } from "dotenv";
+import dotenv from "dotenv";
+import authorize from "./middleware/authorize";
 
+dotenv.config();
 const app = express();
 app.use(express.json());
+
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "../public")));
 
-config();
-configDotenv();
+// const excludedPaths = [
+//   { path: "/auth/login", method: "POST" },
+//   { path: "/auth/register", method: "POST" },
+// ];
 
+app.use(
+  authorize([
+    { path: "/auth/login", method: "POST" },
+    { path: "/auth/register", method: "POST" },
+  ])
+);
 // Routes
 app.use("/auth", authRoutes);
 app.use("/movies", movieRoutes);
