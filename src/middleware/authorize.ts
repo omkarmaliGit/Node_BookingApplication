@@ -1,6 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
+export interface IAuth {
+  path: string;
+  method: "POST" | "GET" | "PUT" | "PATCH" | "DELETE";
+}
+
 const authorize = (excludedPaths: IAuth[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -35,10 +40,5 @@ const authorize = (excludedPaths: IAuth[]) => {
     }
   };
 };
-
-export interface IAuth {
-  path: string;
-  method: "POST" | "GET" | "PUT" | "PATCH" | "DELETE";
-}
 
 export default authorize;

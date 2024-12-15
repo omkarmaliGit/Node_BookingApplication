@@ -78,6 +78,8 @@ async function handleRegistration(event) {
   const email = document.getElementById("register-email").value;
   const password = document.getElementById("register-password").value;
 
+  console.log("print something");
+
   try {
     const response = await fetch("/auth/register", {
       method: "POST",

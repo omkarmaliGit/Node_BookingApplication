@@ -11,13 +11,23 @@
     "email": "omkar@xyz.com",
     "password": "$2b$10$p4xfdrXzuusghmmlG41h2.c6G7rOXBySeNhaDe8lUfZ5hqwr1GG92",
     "role": "user",
-    "bookings": ["1"]
+    "bookings": [
+      "1"
+    ]
   },
   {
     "id": 3,
     "email": "shubham@xyz.com",
     "password": "$2b$10$YfUjIDhigPEQj13ul7wSxelP4xDUs4Qa8t8hz4uhfsZ1kz7aHmAVS",
     "role": "user",
-    "bookings": ["2"]
+    "bookings": [
+      "2"
+    ]
+  },
+  {
+    "id": 4,
+    "email": "hello@xyz.com",
+    "password": "$2b$10$u3HqLxnD9yVefpXFEEAtzu6x06H0oW7n2UcZjBrUOgC9ee.PcvekK",
+    "role": "user"
   }
 ]
