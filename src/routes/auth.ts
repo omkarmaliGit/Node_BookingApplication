@@ -6,7 +6,6 @@ import jwt from "jsonwebtoken";
 const router = Router();
 const USERS_FILE = "./src/storage/users.json";
 
-// require('dotenv').config();
 const JWT_SECRET =
   (process.env.JWT_SECRET as string) ||
   "70728c6235fe0363683b8e1093f39ee5dca1594712e3e5d3bf67f429539abfce";
