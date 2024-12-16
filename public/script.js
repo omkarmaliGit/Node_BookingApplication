@@ -215,6 +215,8 @@ async function displayMovies(role) {
   }
 }
 
+async function displayTheaters(role) {}
+
 async function handleAddMovie(event) {
   event.preventDefault();
   const title = document.getElementById("title").value;

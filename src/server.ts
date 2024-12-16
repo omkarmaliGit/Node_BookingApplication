@@ -5,10 +5,10 @@ import authRoutes from "./routes/auth";
 import movieRoutes from "./routes/movies";
 import theaterRoutes from "./routes/theaters";
 import showRoutes from "./routes/shows";
-import dotenv from "dotenv";
+import { config } from "dotenv";
 import authorize from "./middleware/authorize";
 
-dotenv.config();
+config();
 const app = express();
 app.use(express.json());
 
