@@ -18,17 +18,13 @@ interface Movie {
 }
 
 //User route
-router.get(
-  "/",
-  permit(["user", "admin"]),
-  async (req: Request, res: Response): Promise<any> => {
-    const movies = readData<Movie[]>(MOVIES_FILE);
-    if (!movies) {
-      return res.status(500).json({ message: "Error loading posts" });
-    }
-    res.json(movies);
+router.get("/", jwtAuth, async (req: Request, res: Response): Promise<any> => {
+  const movies = readData<Movie[]>(MOVIES_FILE);
+  if (!movies) {
+    return res.status(500).json({ message: "Error loading posts" });
   }
-);
+  res.json(movies);
+});
 
 // Admin-only route
 router.post(
